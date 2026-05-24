@@ -1,25 +1,5 @@
-const Ziggy = {
-    url: "https:\/\/mulia-pos-lite.test",
-    port: null,
-    defaults: {},
-    routes: {
-        home: { uri: "\/", methods: ["GET", "HEAD"] },
-        about: { uri: "about", methods: ["GET", "HEAD"] },
-        "storage.local": {
-            uri: "storage\/{path}",
-            methods: ["GET", "HEAD"],
-            wheres: { path: ".*" },
-            parameters: ["path"],
-        },
-        "storage.local.upload": {
-            uri: "storage\/{path}",
-            methods: ["PUT"],
-            wheres: { path: ".*" },
-            parameters: ["path"],
-        },
-    },
-};
-if (typeof window !== "undefined" && typeof window.Ziggy !== "undefined") {
-    Object.assign(Ziggy.routes, window.Ziggy.routes);
+const Ziggy = {"url":"https:\/\/mulia-pos-lite.test","port":null,"defaults":{},"routes":{"boost.browser-logs":{"uri":"_boost\/browser-logs","methods":["POST"]},"home":{"uri":"\/","methods":["GET","HEAD"]},"about":{"uri":"about","methods":["GET","HEAD"]},"dashboard":{"uri":"dashboard","methods":["GET","HEAD"]},"satuan.index":{"uri":"satuan","methods":["GET","HEAD"]},"satuan.store":{"uri":"satuan","methods":["POST"]},"satuan.edit":{"uri":"satuan\/{satuan}\/edit","methods":["GET","HEAD"],"parameters":["satuan"],"bindings":{"satuan":"id"}},"satuan.update":{"uri":"satuan\/{satuan}","methods":["PUT"],"parameters":["satuan"],"bindings":{"satuan":"id"}},"satuan.destroy":{"uri":"satuan\/{satuan}","methods":["DELETE"],"parameters":["satuan"],"bindings":{"satuan":"id"}},"storage.local":{"uri":"storage\/{path}","methods":["GET","HEAD"],"wheres":{"path":".*"},"parameters":["path"]},"storage.local.upload":{"uri":"storage\/{path}","methods":["PUT"],"wheres":{"path":".*"},"parameters":["path"]}}};
+if (typeof window !== 'undefined' && typeof window.Ziggy !== 'undefined') {
+  Object.assign(Ziggy.routes, window.Ziggy.routes);
 }
 export { Ziggy };
