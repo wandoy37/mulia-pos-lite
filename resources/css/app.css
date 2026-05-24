@@ -1,5 +1,3 @@
-@import "tailwindcss";
-
 @import "bootstrap/dist/css/bootstrap.min.css";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -12,4 +10,50 @@
         "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
+}
+
+:root {
+    /* 1. Mengubah variabel warna utama Bootstrap menjadi Orange */
+    --bs-primary: #ff6600;
+    --bs-primary-rgb:
+        255, 102, 0; /* Format RGB wajib untuk utility opacity/background */
+
+    /* 2. Mengubah warna hover/focus (opsional, agar orange sedikit lebih gelap saat di-hover) */
+    --bs-primary-bg-subtle: #ffe5d4;
+    --bs-primary-border-subtle: #ffb380;
+    --bs-link-color: #ff6600;
+    --bs-link-hover-color: #cc5200;
+}
+
+/* 3. Override khusus untuk komponen Button agar teksnya tetap kontras (Putih) */
+.btn-primary {
+    --bs-btn-bg: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+    --bs-btn-hover-bg: #cc5200; /* Orange lebih gelap saat hover */
+    --bs-btn-hover-border-color: #cc5200;
+    --bs-btn-active-bg: #b34700;
+    --bs-btn-active-border-color: #b34700;
+    --bs-btn-disabled-bg: var(--bs-primary);
+    --bs-btn-disabled-border-color: var(--bs-primary);
+    color: #fff !important; /* Memastikan teks di dalam tombol tetap putih */
+}
+
+/* 4. Override untuk form input saat dalam posisi focus */
+.form-control:focus {
+    border-color: #ffb380;
+    box-shadow: 0 0 0 0.25rem rgba(255, 102, 0, 0.25);
+}
+
+.nav-item .nav-link {
+    color: #3f4063;
+    font-weight: 400;
+}
+
+.nav-item .nav-link.active,
+.nav-item .nav-link:hover {
+    color: #ff6600;
+    font-weight: 500;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #ff6600;
 }
