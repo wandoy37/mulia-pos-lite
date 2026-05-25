@@ -8,9 +8,15 @@ use Inertia\Inertia;
 
 class SupplierController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $suppliers = Supplier::latest()->get();
+        $suppliers = Supplier::select(['id', 'nama_supplier', 'kontak'])
+            ->when($request->search, function ($query, $search) {
+                $query->where('nama_supplier', 'like', "%{$search}%")
+                    ->orWhere('kontak', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10);
 
         return Inertia::render('Supplier/Index', [
             'suppliers' => $suppliers,
