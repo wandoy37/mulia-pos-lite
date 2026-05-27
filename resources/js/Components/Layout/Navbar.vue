@@ -1,3 +1,21 @@
+<script setup>
+import { inject } from "vue";
+
+import { Link } from "@inertiajs/vue3";
+
+const route = inject("route");
+
+function isActive(name) {
+    if (route().current(name)) return true;
+    return false;
+}
+
+function isDataMasterActive() {
+    return ["satuan.*", "supplier.*", "produk.*"].some((p) =>
+        route().current(p),
+    );
+}
+</script>
 <template>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container">
@@ -24,12 +42,51 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mx-4">
-                        <a class="nav-link active" aria-current="page" href="#"
-                            >Dashboard</a
+                        <Link
+                            class="nav-link"
+                            :class="{ active: isActive('dashboard') }"
+                            aria-current="page"
+                            :href="route('dashboard')"
+                            >Dashboard</Link
                         >
                     </li>
-                    <li class="nav-item mx-4">
-                        <a class="nav-link" href="#">Data Master</a>
+                    <li class="nav-item dropdown mx-4">
+                        <Link
+                            class="nav-link dropdown-toggle"
+                            :class="{ active: isDataMasterActive() }"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            Data Master
+                        </Link>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <Link
+                                    class="dropdown-item"
+                                    :class="{ active: isActive('satuan.*') }"
+                                    :href="route('satuan.index')"
+                                    >Satuan</Link
+                                >
+                            </li>
+                            <li>
+                                <Link
+                                    class="dropdown-item"
+                                    :class="{ active: isActive('supplier.*') }"
+                                    :href="route('supplier.index')"
+                                    >Supplier</Link
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    :class="{ active: isActive('produk.*') }"
+                                    :href="route('produk.index')"
+                                    >Produk</a
+                                >
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item mx-4">
                         <a class="nav-link" href="#">Pembelian</a>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -33,3 +34,6 @@ Route::delete('/satuan/{satuan}', [SatuanController::class, 'destroy'])->name('s
 
 // Route Supplier
 Route::resource('supplier', SupplierController::class)->except(['create', 'edit', 'show']);
+
+// Route Produk
+Route::resource('produk', ProdukController::class)->except(['show']);
