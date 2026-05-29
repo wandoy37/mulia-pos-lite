@@ -89,7 +89,9 @@ function isDataMasterActive() {
                         </ul>
                     </li>
                     <li class="nav-item mx-4">
-                        <a class="nav-link" href="#">Pembelian</a>
+                        <Link class="nav-link" :href="route('pembelian.index')"
+                            >Pembelian</Link
+                        >
                     </li>
                     <li class="nav-item mx-4">
                         <a class="nav-link" href="#">Penjualan</a>
