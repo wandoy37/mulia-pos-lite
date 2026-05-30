@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-@import "bootstrap/dist/css/bootstrap.min.css";
+$primary: #fd7e14;
+
+@import "bootstrap/scss/bootstrap";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
