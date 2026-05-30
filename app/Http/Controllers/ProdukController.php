@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produk;
 use App\Models\Satuan;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -22,6 +23,18 @@ class ProdukController extends Controller
             'produk' => $produk,
             'filters' => $request->only('search'),
         ]);
+    }
+
+    public function search(Request $request): JsonResponse
+    {
+        $search = $request->get('q', '');
+
+        return response()->json(
+            Produk::where('nama_produk', 'like', "%{$search}%")
+                ->select('id', 'nama_produk', 'harga_beli_terakhir')
+                ->take(20)
+                ->get()
+        );
     }
 
     public function create()

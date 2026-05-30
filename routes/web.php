@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\SupplierController;
+use App\Models\Pembelian;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -33,7 +35,26 @@ Route::put('/satuan/{satuan}', [SatuanController::class, 'update'])->name('satua
 Route::delete('/satuan/{satuan}', [SatuanController::class, 'destroy'])->name('satuan.destroy');
 
 // Route Supplier
+Route::get('/supplier/search', [SupplierController::class, 'search'])->name('supplier.search');
 Route::resource('supplier', SupplierController::class)->except(['create', 'edit', 'show']);
 
 // Route Produk
+Route::get('/produk/search', [ProdukController::class, 'search'])->name('produk.search');
 Route::resource('produk', ProdukController::class)->except(['show']);
+
+// Route Pembelian
+Route::resource('pembelian', PembelianController::class);
+
+Route::get('/pembelian/{pembelian}/detail', function (Pembelian $pembelian) {
+    $pembelian->load('detailPembelian.produk');
+
+    return response()->json([
+        'details' => $pembelian->detailPembelian->map(fn ($d) => [
+            'produk_id' => $d->produk_id,
+            'nama_produk' => $d->produk->nama_produk,
+            'harga_beli_terakhir' => $d->produk->harga_beli_terakhir,
+            'qty' => $d->qty,
+            'harga_satuan' => $d->harga_satuan,
+        ]),
+    ]);
+})->name('pembelian.detail');

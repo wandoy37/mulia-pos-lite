@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Supplier;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -21,6 +22,18 @@ class SupplierController extends Controller
         return Inertia::render('Supplier/Index', [
             'suppliers' => $suppliers,
         ]);
+    }
+
+    public function search(Request $request): JsonResponse
+    {
+        $search = $request->get('q', '');
+
+        $suppliers = Supplier::where('nama_supplier', 'like', "%{$search}%")
+            ->select('id', 'nama_supplier')
+            ->take(20)
+            ->get();
+
+        return response()->json($suppliers);
     }
 
     public function store(Request $request)
